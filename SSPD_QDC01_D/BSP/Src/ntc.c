@@ -1,4 +1,5 @@
 #include "ntc.h"
+#include "MATH.H"
 
 TEMP temp;
 
@@ -23,8 +24,13 @@ uint16_t get_temp( uint8_t channle_x )
             
 		}	       
     adc_val = adc_val/10;
+    if( adc_val >= 1156 )
+    {
+      temp_val = ((adc_val - 1156) * 100 )/ 623;
+    }else
+    {
+      temp_val = 0;
+    }
 
-    temp_val = (adc_val-654) / 23;
-   
     return temp_val;
 }
