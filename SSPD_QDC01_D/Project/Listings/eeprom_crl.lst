@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        06/06/2025 17:17:41 PAGE 1   
+C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        06/06/2025 17:25:14 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE EEPROM_CRL
@@ -62,7 +62,7 @@ line level    source
   51           *
   52           * @return  void
   53          **/
-C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        06/06/2025 17:17:41 PAGE 2   
+C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        06/06/2025 17:25:14 PAGE 2   
 
   54          void eeprom_data_record( void )
   55          {
@@ -126,7 +126,7 @@ line level    source
  113   1          qdc_info.stir_level = ISP_Read(STIR_ADDR1);
  114   1          qdc_info.stir_start_time = ISP_Read(STIR_ADDR2);
  115   1          qdc_info.stir_stop_time = ISP_Read(STIR_ADDR3);
-C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        06/06/2025 17:17:41 PAGE 3   
+C51 COMPILER V9.60.7.0   EEPROM_CRL                                                        06/06/2025 17:25:14 PAGE 3   
 
  116   1          qdc_info.stir_switch = ISP_Read(STIR_ADDR4);
  117   1          
