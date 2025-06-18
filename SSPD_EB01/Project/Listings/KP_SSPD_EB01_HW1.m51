@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    06/03/2025  16:27:05  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                    06/18/2025  09:40:31  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.4.0, INVOKED BY:
@@ -59,7 +59,7 @@ LINK MAP OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP)
             XDATA   0107H     0103H     UNIT         ?XD?NTC
             XDATA   020AH     0028H     UNIT         _XDATA_GROUP_
             XDATA   0232H     0014H     UNIT         ?XD?COMMON
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 2
 
 
             XDATA   0246H     000EH     UNIT         ?XD?POWER_CRL
@@ -119,7 +119,7 @@ LINK MAP OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP)
             CODE    16EAH     000AH     UNIT         ?PR?_INKSAC_CTRL?POWER_CRL
 
 
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 3
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 3
 
 
 
@@ -179,7 +179,7 @@ SEGMENT                                            BIT_GROUP          DATA_GROUP
 ?PR?MODBUS_FUN4?MODBUS_RTU                      -----    -----      -----    -----      020AH    0002H
   +--> ?PR?INK_SCAN?LEVEL
   +--> ?PR?_SLAVE_TO_MASTER?MODBUS_RTU
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 4
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 4
 
 
 
@@ -239,7 +239,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   N:0100H         SYMBOL        IBPSTACKTOP
   N:0080H         SYMBOL        IDATALEN
   C:10E8H         SYMBOL        IDATALOOP
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 5
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 5
 
 
   N:0000H         SYMBOL        PBPSTACK
@@ -299,7 +299,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:15C2H         LINE#         21
   C:15C2H         LINE#         22
   C:15C5H         LINE#         23
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 6
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 6
 
 
   C:15C8H         LINE#         24
@@ -359,7 +359,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   -------         ENDDO         
   C:158FH         LINE#         36
   C:158FH         LINE#         37
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 7
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 7
 
 
   C:158FH         LINE#         38
@@ -419,7 +419,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:150DH         LINE#         38
   C:1511H         LINE#         39
   -------         ENDPROC       GPIO_INIT
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 8
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 8
 
 
   -------         ENDMOD        GPIO
@@ -479,7 +479,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   D:00C0H         PUBLIC        P4
   D:00C8H         PUBLIC        P5
   D:00E8H         PUBLIC        P6
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 9
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 9
 
 
   D:00F8H         PUBLIC        P7
@@ -539,7 +539,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   -------         PROC          TIMER0_INIT
   C:16B5H         LINE#         18
   C:16B5H         LINE#         19
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 10
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 10
 
 
   C:16B5H         LINE#         20
@@ -599,7 +599,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:1681H         LINE#         18
   C:1684H         LINE#         20
   C:1687H         LINE#         22
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 11
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 11
 
 
   C:168AH         LINE#         23
@@ -659,7 +659,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:1674H         LINE#         24
   -------         ENDPROC       UART4_SEND_STATU_INIT
   -------         PROC          UART4_ISR
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 12
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 12
 
 
   C:11FCH         LINE#         33
@@ -719,7 +719,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:1585H         LINE#         119
   C:1588H         LINE#         120
   C:1588H         LINE#         121
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 13
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 13
 
 
   -------         ENDPROC       UART3_ISR
@@ -779,7 +779,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:128EH         LINE#         39
   C:1291H         LINE#         40
   C:1291H         LINE#         41
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 14
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 14
 
 
   C:1294H         LINE#         42
@@ -839,7 +839,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   X:0107H         PUBLIC        temp
   X:010EH         SYMBOL        MF52E_tab
   C:13A9H         PUBLIC        _get_temp
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 15
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 15
 
 
   C:1171H         SYMBOL        _LookupTable
@@ -899,7 +899,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   D:00A8H         PUBLIC        IE
   B:00A0H.3       PUBLIC        DC_PWM2
   C:16EAH         PUBLIC        _inksac_ctrl
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 16
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 16
 
 
   D:00B8H         PUBLIC        IP
@@ -959,7 +959,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:163CH         LINE#         62
   C:163CH         LINE#         63
   C:163EH         LINE#         64
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 17
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 17
 
 
   C:163EH         LINE#         65
@@ -1019,7 +1019,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:15E4H         LINE#         12
   C:15E6H         LINE#         13
   C:15E8H         LINE#         14
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 18
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 18
 
 
   C:15EAH         LINE#         15
@@ -1079,7 +1079,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:0B7AH         LINE#         74
   C:0B81H         LINE#         75
   C:0B84H         LINE#         76
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 19
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 19
 
 
   C:0B84H         LINE#         77
@@ -1139,7 +1139,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:0C47H         LINE#         137
   C:0C47H         LINE#         138
   -------         ENDPROC       INK_SCAN
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 20
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 20
 
 
   -------         ENDMOD        LEVEL
@@ -1199,7 +1199,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:0476H         LINE#         41
   C:047BH         LINE#         42
   C:047BH         LINE#         43
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 21
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 21
 
 
   C:047DH         LINE#         44
@@ -1259,7 +1259,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:0574H         LINE#         105
   C:0578H         LINE#         106
   C:0578H         LINE#         109
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 22
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 22
 
 
   C:057BH         LINE#         110
@@ -1319,7 +1319,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:0706H         LINE#         170
   C:070AH         LINE#         171
   C:070AH         LINE#         172
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 23
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 23
 
 
   C:070AH         LINE#         173
@@ -1379,7 +1379,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:0075H         LINE#         46
   C:0075H         LINE#         47
   C:0078H         LINE#         48
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 24
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 24
 
 
   C:0078H         LINE#         50
@@ -1439,7 +1439,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:0E8EH         LINE#         141
   C:0E99H         LINE#         142
   C:0EABH         LINE#         144
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 25
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 25
 
 
   C:0EB1H         LINE#         145
@@ -1499,7 +1499,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:0DF5H         LINE#         235
   C:0E04H         LINE#         236
   C:0E07H         LINE#         237
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 26
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 26
 
 
   C:0E07H         LINE#         238
@@ -1559,7 +1559,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:0A3FH         LINE#         316
   C:0A42H         LINE#         317
   C:0A42H         LINE#         318
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 27
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 27
 
 
   C:0A46H         LINE#         319
@@ -1619,7 +1619,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   C:0FFAH         LINE#         400
   C:100DH         LINE#         402
   C:1020H         LINE#         404
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 28
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 28
 
 
   C:102BH         LINE#         405
@@ -1679,7 +1679,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514 (?C_STARTUP
   -------         ENDMOD        ?C?ILDOPTR
 
   -------         MODULE        PRINTF
-BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/03/2025  16:27:05  PAGE 29
+BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  06/18/2025  09:40:31  PAGE 29
 
 
   X:020AH         PUBLIC        ?_PRINTF517?BYTE

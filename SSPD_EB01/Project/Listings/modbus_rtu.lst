@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/03/2025 16:27:05 PAGE 1   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:31 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MODBUS_RTU
@@ -62,7 +62,7 @@ line level    source
   51   5                              Modbus_Fun16();
   52   5      
   53   5                          default:
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/03/2025 16:27:05 PAGE 2   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:31 PAGE 2   
 
   54   5                              break;
   55   5                      }
@@ -126,7 +126,7 @@ line level    source
  113   3      
  114   3                  /*  40006 报警温度查询                     */
  115   3                  case 5:   
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/03/2025 16:27:05 PAGE 3   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:31 PAGE 3   
 
  116   3              
  117   3      
@@ -190,7 +190,7 @@ line level    source
  175   3                  case 0x03:
  176   3                      modbus.byte_info_H = 0x00;
  177   3                      modbus.byte_info_L = temp.temp_value1;
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/03/2025 16:27:05 PAGE 4   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:31 PAGE 4   
 
  178   3                      break;
  179   3      
@@ -254,7 +254,7 @@ line level    source
  236   2                  if(dc_ctrl.cir_switch == 1)
  237   2                  {
  238   3                      pwm_ctrl(CIR_CTRL,dc_ctrl.cir_level);
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/03/2025 16:27:05 PAGE 5   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:31 PAGE 5   
 
  239   3                  }else
  240   2                  {
@@ -318,7 +318,7 @@ line level    source
  297   2              {
  298   3                      /*  40001  底板加热                      */
  299   3                  case 0x00:                  
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/03/2025 16:27:05 PAGE 6   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:31 PAGE 6   
 
  300   3                      dc_ctrl.board_alarm_temp = modbus.byte_info_H;                                   
  301   3                      dc_ctrl.board_out_allow = modbus.byte_info_L;
@@ -382,7 +382,7 @@ line level    source
  357          
  358          
  359          /**
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/03/2025 16:27:05 PAGE 7   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:31 PAGE 7   
 
  360           * @brief       从机回复主机
  361           *  
@@ -446,7 +446,7 @@ line level    source
  419   1      }
  420          
  421          
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/03/2025 16:27:05 PAGE 8   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:31 PAGE 8   
 
  422          /**
  423           * @brief       crc校验函数
