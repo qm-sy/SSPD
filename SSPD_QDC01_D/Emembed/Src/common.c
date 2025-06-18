@@ -12,6 +12,7 @@ void Tim3_ISR( void ) interrupt 19
 
     static uint16_t temp_scan_cnt = 0;
     static uint16_t scan_04_cnt = 0;
+
     /* 1, temp 上报 1s/次                             */
     if( temp.temp_scan_flag == 0 )
     {
@@ -29,6 +30,15 @@ void Tim3_ISR( void ) interrupt 19
         {
             scan_04_cnt = 0;
             rs485.scan_04_flag = 1;
+        }
+    }
+
+    if( qdc_info.EB_statu_flag == 1 )
+    {
+        qdc_info.EB_scan_cnt++;
+        if( qdc_info.EB_scan_cnt == 500 )
+        {
+            qdc_info.EB_statu_flag = 0;
         }
     }
 }

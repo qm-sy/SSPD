@@ -17,14 +17,19 @@ typedef struct
 {
     uint8_t  level_info1;
     uint8_t  level_info2;
+    uint8_t  level_info3;
+    uint8_t  level_info4;
     uint8_t  waste_ink;              
     uint8_t  dht11_temp;
     uint8_t  dht11_hum;
-    uint8_t  ntc1_temp;
-    uint8_t  thermopile_temp;                
+    uint8_t  F_alarm_temp;
+    uint8_t  M_alarm_temp;
+    uint8_t  R_alarm_temp;           
 
-    uint8_t  roller_enable;
-    uint8_t  roller_temp;
+    uint8_t  power_enable;
+    uint8_t  AC1_alarm_flag;
+    uint8_t  AC2_alarm_flag;
+    uint8_t  AC3_alarm_flag;
     uint8_t  led_switch;            
     uint8_t  fan_level;                   
     uint8_t  board_switch;
@@ -38,6 +43,14 @@ typedef struct
     uint8_t  stir_start_time;
     uint8_t  stir_stop_time;
     uint8_t  stir_switch;
+    uint8_t  cir_level_m;
+    uint8_t  cir_start_time_m;
+    uint8_t  cir_stop_time_m;
+    uint8_t  cir_switch_m;
+    uint8_t  stir_level_m;
+    uint8_t  stir_start_time_m;
+    uint8_t  stir_stop_time_m;
+    uint8_t  stir_switch_m;
     uint8_t  ink_out_time;
 
     uint8_t  ink7_dis;
@@ -49,6 +62,16 @@ typedef struct
     uint8_t  ink5;
     uint8_t  ink6;
     uint8_t  ink7;
+    uint8_t  ink8;
+    uint8_t  ink9;
+    uint8_t  ink10;
+    uint8_t  ink11;
+    uint8_t  ink12;
+    uint8_t  ink13;
+    uint8_t  ink14;
+
+    uint8_t  EB_statu_flag;
+    uint16_t EB_scan_cnt;
 }QDC_INFO;
 
 

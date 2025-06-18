@@ -7,7 +7,7 @@
 #include "power_crl.h"
 #include "eeprom_crl.h"
 
-#define ADDR_485     0xEB
+#define ADDR_485     0xE1
 #define ADDR_SATA    0xDC
 
 typedef struct 
@@ -35,8 +35,6 @@ void Modbus_Fun3_Sata( void );
 void Modbus_Fun4_Sata( void );
 void Modbus_Fun6_Sata( void );
 void Modbus_Fun16_Sata( void );
-
-
 
 void slave_to_master_485(uint8_t code_num,uint8_t length);
 void slave_to_master_Sata(uint8_t code_num,uint8_t length);

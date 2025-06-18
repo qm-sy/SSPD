@@ -32,20 +32,34 @@ void fan_ctrl( uint8_t level )
     PWMB_CCR7= level * 184;
 }
 
-void rubber_roller_ctrl()
+void power_ctrl()
 {
-    if( qdc_info.roller_enable == 1 )
+    if( qdc_info.power_enable == 1 )
     {
-        if( qdc_info.thermopile_temp < qdc_info.roller_temp )  
+        if( qdc_info.AC1_alarm_flag == 1)
         {
-            AC_Out1 = 0; 
+            AC_Out1 = 0;
         }else
         {
             AC_Out1 = 1;
         }
+        if( qdc_info.AC2_alarm_flag == 1)
+        {
+            AC_Out2 = 0;
+        }else
+        {
+            AC_Out2 = 1;
+        }
+        if( qdc_info.AC3_alarm_flag == 1)
+        {
+            AC_Out3 = 0;
+        }else
+        {
+            AC_Out3 = 1;
+        }  
     }else
     {
-        AC_Out1 = 1;
+        AC_Out1 = AC_Out2 = AC_Out3 = 1; 
     }
 }
 /**
@@ -60,10 +74,34 @@ void temp_scan( void )
 {
     if( temp.temp_scan_flag == 1)
     {
-
-        qdc_info.thermopile_temp = get_temp(THERMOPILE);
+        temp.temp_value1 = get_temp(NTC1);
+        temp.temp_value2 = get_temp(NTC2);
+        temp.temp_value3 = get_temp(NTC3);
         
-        rubber_roller_ctrl();
+        if( temp.temp_value1 >= qdc_info.F_alarm_temp )
+        {
+            qdc_info.AC1_alarm_flag = 0;
+        }else
+        {
+            qdc_info.AC1_alarm_flag = 1;
+        }
+
+        if( temp.temp_value2 >= qdc_info.M_alarm_temp )
+        {
+            qdc_info.AC2_alarm_flag = 0;
+        }else
+        {
+            qdc_info.AC2_alarm_flag = 1;
+        }
+
+        if( temp.temp_value3 >= qdc_info.R_alarm_temp )
+        {
+            qdc_info.AC3_alarm_flag = 0;
+        }else
+        {
+            qdc_info.AC3_alarm_flag = 1;
+        }
+        power_ctrl();
         
         temp.temp_scan_flag = 0;
     }

@@ -18,7 +18,7 @@ extern AC_DC ac_dc;
 
 void led_ctrl( uint8_t on_off );
 void fan_ctrl( uint8_t level );
-void rubber_roller_ctrl();
+void power_ctrl();
 void temp_scan( void );
 
 #endif

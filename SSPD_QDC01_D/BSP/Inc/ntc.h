@@ -6,8 +6,9 @@
 #include "power_crl.h"
 #include "stdio.h"
 
-#define NTC        4
-#define THERMOPILE 0
+#define NTC1        4
+#define NTC2        5
+#define NTC3        6
 
 typedef struct 
 {
@@ -23,6 +24,7 @@ typedef struct
 
 extern TEMP temp;
 
+static uint16_t LookupTable( uint16_t *temp_tab, uint8_t tab_num, uint16_t adc_val );
 uint16_t get_temp( uint8_t channle_x );
 
 #endif

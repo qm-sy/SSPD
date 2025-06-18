@@ -1,23 +1,6 @@
 #include  "dht11.h" 
 
-/**
- * @brief	DHT11读取开始 时序变化
- *
- * @param   
- *
- * @return  读取的字节
-**/
-void DHT11_start()
-{
-    Temp_Hum = 1;
-    delay_us(2);
-
-    Temp_Hum = 0;
-    delay_ms(25);   //拉低延时18ms以上
-
-    Temp_Hum = 1;
-    delay_us(30);   //拉高 延时 20~40us，取中间值 30us
-}
+DHT11 dht11;
 
 /**
  * @brief	从DHT11读取一个字节，MSB先行
@@ -47,6 +30,25 @@ static uint8_t Read_Byte(void)
 		}
 	}
 	return dat;	
+}
+
+/**
+ * @brief	DHT11读取开始 时序变化
+ *
+ * @param   
+ *
+ * @return  读取的字节
+**/
+void DHT11_start()
+{
+    Temp_Hum = 1;
+    delay_us(2);
+
+    Temp_Hum = 0;
+    delay_ms(30);   //拉低延时18ms以上
+
+    Temp_Hum = 1;
+    delay_us(30);   //拉高 延时 20~40us，取中间值 30us
 }
 
 /**
@@ -86,8 +88,8 @@ void Read_DHT11(void)
         if( (R_H+R_L+T_H+T_L) == revise )      //
         {
             /* 7, 校验正确，为结构体赋值                  */
-            temp.dht11_temp  = T_H;
-            temp.dht11_humidity = R_H;
+            dht11.dht11_temp  = T_H;
+            dht11.dht11_humidity = R_H;
         }
     } 
 }

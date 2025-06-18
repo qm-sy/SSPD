@@ -154,27 +154,21 @@ void Modbus_Fun4( void )
             /*  30001  1~7通道液位信息                        */
             case 0x00:
                 ink_scan();
-                modbus.byte_info_H = level.level_info_H;
-                modbus.byte_info_L = level.level_info_L;
+                modbus.byte_info_H = level.level17_info_H;
+                modbus.byte_info_L = level.level17_info_L;
                 break;
 
-            /*  30002                 */
+            /*  30002   8~14通道液位信息              */
             case 0x01:
-                modbus.byte_info_H = 0x00;
-                modbus.byte_info_L = 0x00;
+                modbus.byte_info_H = level.level814_info_H;
+                modbus.byte_info_L = level.level814_info_L;
 
                 break;
 
             /*  30003 温湿度                   */
             case 0x02:
-                modbus.byte_info_H = temp.dht11_humidity;
-                modbus.byte_info_L = temp.dht11_temp;
-                break;
-
-            /*  30004 NTC1 温度                   */
-            case 0x03:
-                modbus.byte_info_H = 0x00;
-                modbus.byte_info_L = temp.temp_value1;
+                modbus.byte_info_H = dht11.dht11_humidity;
+                modbus.byte_info_L = dht11.dht11_temp;
                 break;
 
             default:
@@ -214,25 +208,11 @@ void Modbus_Fun6( void )
 
             break;  
             
-        /*  40004  底板加热                   */
-        case 0x03:   
-            dc_ctrl.board_alarm_temp = rs485.RX4_buf[4];                                   
-            dc_ctrl.board_out_allow = rs485.RX4_buf[5];
 
-            break;
-
-        /*  40005  墨囊加热                   */
-        case 0x04:                                         
-            inksac_ctrl(rs485.RX4_buf[5]);
-
-            break;
-
-        /*  40006  循环控制                  */
-        case 0x05:                  
-            dc_ctrl.cir_start_time = ((rs485.RX4_buf[5] >> 3) | ((rs485.RX4_buf[4] & 0x01) << 5)) * 100;     
-            dc_ctrl.cir_stop_time  = ((rs485.RX4_buf[4] & 0x7F) >> 1) * 100;  
-            dc_ctrl.cir_level = rs485.RX4_buf[5]&0x07;   
-            dc_ctrl.cir_switch = rs485.RX4_buf[4] >> 7;
+        /*  40004  循环控制循环控制(开关及档位)                  */
+        case 0x03:                  
+            //dc_ctrl.cir_level = rs485.RX4_buf[4];   
+            dc_ctrl.cir_switch = rs485.RX4_buf[5];
             if(dc_ctrl.cir_switch == 1)
             {
                 pwm_ctrl(CIR_CTRL,dc_ctrl.cir_level);
@@ -243,12 +223,15 @@ void Modbus_Fun6( void )
             
             break;
 
-        /*  40007  搅拌控制                   */
-        case 0x06:  
-            dc_ctrl.stir_start_time = ((rs485.RX4_buf[5] >> 3) | ((rs485.RX4_buf[4] & 0x01) << 5)) * 100;     
-            dc_ctrl.stir_stop_time  = ((rs485.RX4_buf[4] & 0x7F) >> 1) * 100;   
-            dc_ctrl.stir_level = rs485.RX4_buf[5]&0x07;  
-            dc_ctrl.stir_switch = rs485.RX4_buf[4] >> 7;
+        /*  40006  循环控制                  */
+        case 0x04:                  
+
+            break;
+
+        /*  40007  搅拌控制(开关及档位)                   */
+        case 0x05:   
+            //dc_ctrl.stir_level = rs485.RX4_buf[5];  
+            dc_ctrl.stir_switch = rs485.RX4_buf[5];
             if(dc_ctrl.stir_switch == 1)
             {
                 pwm_ctrl(STIR_CTRL,dc_ctrl.stir_level);
@@ -256,6 +239,11 @@ void Modbus_Fun6( void )
             {
                 pwm_ctrl(STIR_CTRL,0);
             }
+  
+            break;
+
+        /*  40007  搅拌控制                   */
+        case 0x06:   
   
             break;
 
@@ -295,24 +283,10 @@ void Modbus_Fun16( void )
         modbus.byte_info_L = rs485.RX4_buf[modbus.rcv_value_addr + 1];
         switch (i)
         {
-                /*  40001  底板加热                      */
+            /*  40001  循环控制(开关及档位)                      */
             case 0x00:                  
-                dc_ctrl.board_alarm_temp = modbus.byte_info_H;                                   
-                dc_ctrl.board_out_allow = modbus.byte_info_L;
-                break;
-
-            /*  40002     墨囊加热                              */
-            case 0x01:                                         
-                inksac_ctrl(modbus.byte_info_L);
-
-                break;
-
-            /*  40003    循环控制                         */
-            case 0x02:                                         
-                dc_ctrl.cir_start_time = ((modbus.byte_info_L >> 3) | ((modbus.byte_info_H & 0x01) << 5)) * 100;     
-                dc_ctrl.cir_stop_time  = ((modbus.byte_info_H & 0x7F) >> 1) * 100;  
-                dc_ctrl.cir_level = modbus.byte_info_L&0x07;   
-                dc_ctrl.cir_switch = modbus.byte_info_H >> 7;
+                dc_ctrl.cir_level = modbus.byte_info_H;
+                dc_ctrl.cir_switch = modbus.byte_info_L;
                 if(dc_ctrl.cir_switch == 1)
                 {
                     pwm_ctrl(CIR_CTRL,dc_ctrl.cir_level);
@@ -321,14 +295,19 @@ void Modbus_Fun16( void )
                     pwm_ctrl(CIR_CTRL,0);
                 }
 
-                break;  
+                break;
+
+            /*  40002     循环控制(启停时间)                              */
+            case 0x01:                                         
+                dc_ctrl.cir_stop_time  = modbus.byte_info_H * 100;  
+                dc_ctrl.cir_start_time = modbus.byte_info_L * 100;     
                 
-            /*  40004  搅拌控制                   */
-            case 0x03:   
-                dc_ctrl.stir_start_time = ((modbus.byte_info_L >> 3) | ((modbus.byte_info_H & 0x01) << 5)) * 100;     
-                dc_ctrl.stir_stop_time  = ((modbus.byte_info_H & 0x7F) >> 1) * 100;  
-                dc_ctrl.stir_level = modbus.byte_info_L&0x07;   
-                dc_ctrl.stir_switch = modbus.byte_info_H >> 7;
+                break;
+
+            /*  40003    搅拌控制(开关及档位)                         */
+            case 0x02:                                         
+                dc_ctrl.stir_level = modbus.byte_info_H;
+                dc_ctrl.stir_switch = modbus.byte_info_L;
                 if(dc_ctrl.stir_switch == 1)
                 {
                     pwm_ctrl(STIR_CTRL,dc_ctrl.stir_level);
@@ -336,6 +315,13 @@ void Modbus_Fun16( void )
                 {
                     pwm_ctrl(STIR_CTRL,0);
                 }
+
+                break;  
+                
+            /*  40004  搅拌控制(启停时间)                   */
+            case 0x03:   
+                dc_ctrl.stir_stop_time  = modbus.byte_info_H * 100;  
+                dc_ctrl.stir_start_time = modbus.byte_info_L * 100;    
 
                 break;
 

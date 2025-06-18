@@ -101,7 +101,7 @@ LINK MAP OF MODULE:  ..\Output\QDC01_D (DELAY)
             CODE    10E0H     0020H     UNIT         ?PR?_ISP_READ?EEPROM
             CODE    1100H     001FH     UNIT         ?PR?GPIO_INIT?GPIO
             CODE    111FH     001EH     UNIT         ?PR?_ISP_EARSE?EEPROM
-            CODE    113DH     001BH     UNIT         ?PR?RUBBER_ROLLER_CTRL?POWER_CRL
+            CODE    113DH     001BH     UNIT         ?PR?power_ctrl?POWER_CRL
             CODE    1158H     001AH     UNIT         ?PR?ADC_INIT?ADC
             CODE    1172H     001AH     UNIT         ?PR?TEMP_SCAN?POWER_CRL
             CODE    118CH     0019H     UNIT         ?PR?UART1_INIT?UART
@@ -176,7 +176,7 @@ SEGMENT                                           DATA_GROUP          XDATA_GROU
 
 ?PR?EEPROM_DATA_INIT?EEPROM_CRL                 -----    -----      -----    -----
   +--> ?PR?_ISP_READ?EEPROM
-  +--> ?PR?RUBBER_ROLLER_CTRL?POWER_CRL
+  +--> ?PR?power_ctrl?POWER_CRL
   +--> ?PR?_LED_CTRL?POWER_CRL
   +--> ?PR?_FAN_CTRL?POWER_CRL
 BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  05/20/2025  10:05:14  PAGE 4
@@ -237,7 +237,7 @@ SEGMENT                                           DATA_GROUP          XDATA_GROU
 
 ?PR?TEMP_SCAN?POWER_CRL                         -----    -----      -----    -----
   +--> ?PR?_GET_TEMP?NTC
-  +--> ?PR?RUBBER_ROLLER_CTRL?POWER_CRL
+  +--> ?PR?power_ctrl?POWER_CRL
 
 BL51 BANKED LINKER/LOCATER V6.22.4.0                                                  05/20/2025  10:05:14  PAGE 5
 
@@ -1007,7 +1007,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\QDC01_D (DELAY)
   D:00E8H         PUBLIC        P6
   D:00F8H         PUBLIC        P7
   D:00A8H         PUBLIC        IE
-  C:113DH         PUBLIC        rubber_roller_ctrl
+  C:113DH         PUBLIC        power_ctrl
   D:00B8H         PUBLIC        IP
   D:0098H         PUBLIC        SCON
   D:0088H         PUBLIC        TCON
@@ -1041,7 +1041,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\QDC01_D (DELAY)
   C:11F5H         LINE#         32
   C:1204H         LINE#         33
   -------         ENDPROC       _FAN_CTRL
-  -------         PROC          RUBBER_ROLLER_CTRL
+  -------         PROC          power_ctrl
   C:113DH         LINE#         35
   C:113DH         LINE#         36
   C:113DH         LINE#         37
@@ -1058,7 +1058,7 @@ SYMBOL TABLE OF MODULE:  ..\Output\QDC01_D (DELAY)
   C:1155H         LINE#         48
   C:1157H         LINE#         49
   C:1157H         LINE#         50
-  -------         ENDPROC       RUBBER_ROLLER_CTRL
+  -------         ENDPROC       power_ctrl
   -------         PROC          TEMP_SCAN
   C:1172H         LINE#         59
   C:1172H         LINE#         60

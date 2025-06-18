@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MAIN                                                              06/06/2025 17:25:13 PAGE 1   
+C51 COMPILER V9.60.7.0   MAIN                                                              06/17/2025 15:41:22 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
@@ -44,32 +44,34 @@ line level    source
   33   1          {
   34   2              send_to_EB_16();
   35   2              Modbus_Event_485();
-  36   2              delay_ms(10);
+  36   2              delay_ms(50);
   37   2          }
   38   1          
   39   1          temp.temp_scan_flag = 0;
-  40   1          delay_ms(20);
-  41   1          //printf("========== code start ========== \r\n");
-  42   1      
-  43   1          while (1)
-  44   1          {
-  45   2              Modbus_Event_485();
-  46   2              Modbus_Event_Sata();
-  47   2              temp_scan();
-  48   2              if( rs485.scan_04_flag == 1 )
-  49   2              {
-  50   3                  send_to_EB_04();
-  51   3                  rs485.scan_04_flag = 0;
-  52   3              }
-  53   2              
-C51 COMPILER V9.60.7.0   MAIN                                                              06/06/2025 17:25:13 PAGE 2   
+  40   1          qdc_info.EB_statu_flag = 1;
+  41   1          qdc_info.EB_scan_cnt = 0;
+  42   1          delay_ms(20);
+  43   1          //printf("========== code start ========== \r\n");
+  44   1      
+  45   1          while (1)
+  46   1          {
+  47   2              Modbus_Event_485();
+  48   2              Modbus_Event_Sata();
+  49   2              temp_scan();
+  50   2              if( rs485.scan_04_flag == 1 )
+  51   2              {
+  52   3                  send_to_EB_04();
+  53   3                  rs485.scan_04_flag = 0;
+C51 COMPILER V9.60.7.0   MAIN                                                              06/17/2025 15:41:22 PAGE 2   
 
-  54   2          }  
-  55   1      }
+  54   3              }
+  55   2              
+  56   2          }  
+  57   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     93    ----
+   CODE SIZE        =    103    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

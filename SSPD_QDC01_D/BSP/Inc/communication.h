@@ -21,6 +21,7 @@ typedef struct
     uint8_t     DR_Flag;                //DR
     uint8_t     scan_04_flag;
     uint8_t     connect_flag;
+    uint8_t     conntct_statu;
 }RS485;
 
 typedef struct 

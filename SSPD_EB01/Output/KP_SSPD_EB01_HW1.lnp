@@ -1,0 +1,15 @@
+"..\Output\STARTUP.obj",
+"..\Output\delay.obj",
+"..\Output\gpio.obj",
+"..\Output\main.obj",
+"..\Output\pwm.obj",
+"..\Output\tim.obj",
+"..\Output\uart.obj",
+"..\Output\communication.obj",
+"..\Output\dht11.obj",
+"..\Output\power_crl.obj",
+"..\Output\level.obj",
+"..\Output\common.obj",
+"..\Output\modbus_rtu.obj" 
+TO "..\Output\KP_SSPD_EB01_HW1.0_SW001_20250514" 
+PRINT(".\Listings\KP_SSPD_EB01_HW1.m51") RAMSIZE(256) 

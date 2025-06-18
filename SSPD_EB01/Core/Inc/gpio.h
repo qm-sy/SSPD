@@ -32,8 +32,8 @@ sbit level4_L       = P1^7;
 
 sbit DC24_1         = P2^0;
 sbit DC24_2         = P2^1;
-sbit DC_PWM1           = P2^2;
-sbit DC_PWM2           = P2^3;
+sbit DC_PWM1        = P2^2;
+sbit DC_PWM2        = P2^3;
 sbit level12_L      = P2^4;
 sbit level12_H      = P2^5;
 sbit level13_L      = P2^6;

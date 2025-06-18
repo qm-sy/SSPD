@@ -5,10 +5,8 @@
 
 #include "gpio.h"
 #include "delay.h"
-#include "adc.h"
 #include "tim.h"
 #include "uart.h"
-#include "ntc.h"
 #include "communication.h"
 #include "power_crl.h"
 #include "modbus_rtu.h"

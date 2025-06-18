@@ -407,11 +407,6 @@
           <GroupName>Core</GroupName>
           <Files>
             <File>
-              <FileName>adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\adc.c</FilePath>
-            </File>
-            <File>
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\gpio.c</FilePath>
@@ -450,11 +445,6 @@
               <FileName>dht11.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\BSP\Src\dht11.c</FilePath>
-            </File>
-            <File>
-              <FileName>ntc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\BSP\Src\ntc.c</FilePath>
             </File>
             <File>
               <FileName>power_crl.c</FileName>

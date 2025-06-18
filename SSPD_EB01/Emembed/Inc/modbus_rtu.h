@@ -2,12 +2,11 @@
 #define __MODBUS_RTU_H_
 
 #include "communication.h"
-#include "ntc.h"
 #include "gpio.h"
 #include "power_crl.h"
 #include "level.h"
 
-#define ADDR_EB     0xEB
+#define ADDR_EB     0xE1
 
 typedef struct 
 {

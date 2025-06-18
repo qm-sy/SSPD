@@ -1,7 +1,5 @@
 #include "eeprom_crl.h"
 
-EEPROM_INFO eeprom;
-
 /**
  * @brief	eeprom状态判定，是否写入过
  *
@@ -17,27 +15,25 @@ void eeprom_statu_judge( void )
 
     if( eeprom_statu_flag == 0xFF)
     {
-        qdc_info.roller_enable   = 1;
-        qdc_info.roller_temp     = 60;
+        qdc_info.power_enable    = 1;
         qdc_info.led_switch      = 1;
         qdc_info.fan_level       = 3;
-        qdc_info.board_switch    = 1;
-        qdc_info.board_temp      = 60;
-        qdc_info.inksac_switch   = 1;
 
-        qdc_info.cir_level      = 1;
-        qdc_info.cir_start_time  = 10;
-        qdc_info.cir_stop_time   = 20;
-        qdc_info.cir_switch      = 1;
+        qdc_info.cir_level = qdc_info.cir_level_m = 1;
+        qdc_info.cir_start_time = qdc_info.cir_start_time_m = 10;
+        qdc_info.cir_stop_time = qdc_info.cir_stop_time_m  = 20;
+        qdc_info.cir_switch = qdc_info.cir_switch_m = 1;
 
-        qdc_info.stir_level     = 2;
-        qdc_info.stir_start_time = 15;
-        qdc_info.stir_stop_time  = 25;
-        qdc_info.stir_switch     = 1;
+        qdc_info.stir_level = qdc_info.stir_level_m = 2;
+        qdc_info.stir_start_time = qdc_info.stir_start_time_m = 15;
+        qdc_info.stir_stop_time = qdc_info.stir_stop_time_m = 25;
+        qdc_info.stir_switch = qdc_info.stir_switch_m = 1;
 
         qdc_info.ink_out_time    = 50;
 
-        qdc_info.ink7_dis         = 1;
+        qdc_info.F_alarm_temp    = 80;
+        qdc_info.M_alarm_temp    = 80;
+        qdc_info.R_alarm_temp    = 80;
 
         eeprom_data_record(); 
     }
@@ -55,13 +51,9 @@ void eeprom_data_record( void )
 {
     ISP_Earse(0x0000);
 
-    ISP_Write(ROLLER_ADDR1,qdc_info.roller_enable);
-    ISP_Write(ROLLER_ADDR2,qdc_info.roller_temp);
+    ISP_Write(POWER_ADDR,qdc_info.power_enable);
     ISP_Write(LED_ADDR,qdc_info.led_switch);
     ISP_Write(FAN_ADDR,qdc_info.fan_level);
-    ISP_Write(BOARD_ADDR1,qdc_info.board_switch);
-    ISP_Write(BOARD_ADDR2,qdc_info.board_temp);
-    ISP_Write(INKSAC_ADDR,qdc_info.inksac_switch);
 
     ISP_Write(CIR_ADDR1,qdc_info.cir_level);
     ISP_Write(CIR_ADDR2,qdc_info.cir_start_time);
@@ -75,7 +67,9 @@ void eeprom_data_record( void )
     
     ISP_Write(INK_OUT_ADDR,qdc_info.ink_out_time);
 
-    ISP_Write(INK_DIS,qdc_info.ink7_dis);
+    ISP_Write(ALARM_1_ADDR,qdc_info.F_alarm_temp);
+    ISP_Write(ALARM_2_ADDR,qdc_info.M_alarm_temp);
+    ISP_Write(ALARM_3_ADDR,qdc_info.R_alarm_temp);
 
     ISP_Write(EEPROM_STATU_JUDGE,0x58);
 }
@@ -89,10 +83,8 @@ void eeprom_data_record( void )
 **/
 void eeprom_data_init( void )
 {
-    qdc_info.roller_enable = ISP_Read(ROLLER_ADDR1);
-    qdc_info.roller_temp = ISP_Read(ROLLER_ADDR2);
-
-    rubber_roller_ctrl();
+    qdc_info.power_enable = ISP_Read(POWER_ADDR);
+    power_ctrl();
 
     qdc_info.led_switch = ISP_Read(LED_ADDR);
     led_ctrl(qdc_info.led_switch);
@@ -100,22 +92,19 @@ void eeprom_data_init( void )
     qdc_info.fan_level = ISP_Read(FAN_ADDR);
     fan_ctrl(qdc_info.fan_level);
 
-    qdc_info.board_switch = ISP_Read(BOARD_ADDR1);
-    qdc_info.board_temp   = ISP_Read(BOARD_ADDR2);
+    qdc_info.cir_level = qdc_info.cir_level_m  = ISP_Read(CIR_ADDR1);
+    qdc_info.cir_start_time = qdc_info.cir_start_time_m = ISP_Read(CIR_ADDR2);
+    qdc_info.cir_stop_time = qdc_info.cir_stop_time_m  =ISP_Read(CIR_ADDR3);
+    qdc_info.cir_switch = qdc_info.cir_switch_m = ISP_Read(CIR_ADDR4);
 
-    qdc_info.inksac_switch = ISP_Read(INKSAC_ADDR);
-
-    qdc_info.cir_level = ISP_Read(CIR_ADDR1);
-    qdc_info.cir_start_time = ISP_Read(CIR_ADDR2);
-    qdc_info.cir_stop_time = ISP_Read(CIR_ADDR3);
-    qdc_info.cir_switch = ISP_Read(CIR_ADDR4);
-
-    qdc_info.stir_level = ISP_Read(STIR_ADDR1);
-    qdc_info.stir_start_time = ISP_Read(STIR_ADDR2);
-    qdc_info.stir_stop_time = ISP_Read(STIR_ADDR3);
-    qdc_info.stir_switch = ISP_Read(STIR_ADDR4);
+    qdc_info.stir_level      = qdc_info.stir_level_m = ISP_Read(STIR_ADDR1);
+    qdc_info.stir_start_time = qdc_info.stir_start_time_m = ISP_Read(STIR_ADDR2);
+    qdc_info.stir_stop_time  = qdc_info.stir_stop_time_m = ISP_Read(STIR_ADDR3);
+    qdc_info.stir_switch     = qdc_info.stir_switch_m = ISP_Read(STIR_ADDR4);
     
     qdc_info.ink_out_time = ISP_Read(INK_OUT_ADDR);
 
-    qdc_info.ink7_dis = ISP_Read(INK_DIS);
+    qdc_info.F_alarm_temp = ISP_Read(ALARM_1_ADDR);
+    qdc_info.M_alarm_temp = ISP_Read(ALARM_2_ADDR);
+    qdc_info.R_alarm_temp = ISP_Read(ALARM_3_ADDR);
 }

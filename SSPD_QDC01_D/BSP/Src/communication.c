@@ -24,6 +24,7 @@ void Uart4_Send_Statu_Init( void )
     DR_485 = 0;
     rs485.scan_04_flag = 1;
     rs485.connect_flag = 0;
+    rs485.conntct_statu  = 0;
 }
 
 /**

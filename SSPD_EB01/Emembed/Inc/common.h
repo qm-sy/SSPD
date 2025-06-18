@@ -4,7 +4,6 @@
 #include "sys.h"
 #include "power_crl.h"
 #include "power_crl.h"
-#include "ntc.h"
 #include "communication.h"
 #include "level.h"
 

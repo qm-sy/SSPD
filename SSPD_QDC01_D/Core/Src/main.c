@@ -33,10 +33,12 @@ void main( void )
     {
         send_to_EB_16();
         Modbus_Event_485();
-        delay_ms(10);
+        delay_ms(50);
     }
     
     temp.temp_scan_flag = 0;
+    qdc_info.EB_statu_flag = 1;
+    qdc_info.EB_scan_cnt = 0;
     delay_ms(20);
     //printf("========== code start ========== \r\n");
 

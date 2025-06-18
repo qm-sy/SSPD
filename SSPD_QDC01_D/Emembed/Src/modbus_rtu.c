@@ -105,6 +105,10 @@ void Modbus_Event_Sata( void )
 
                         break;  
 
+                    case 0x10:
+                        Modbus_Fun16_Sata();
+
+                        break;  
                     default:
                         break;
                 }
@@ -205,10 +209,10 @@ void Modbus_Fun3_Sata( void )
         modbus.byte_info_H = modbus.byte_info_L = 0X00;
         switch (i)
         {   
-            /*  40001 胶辊加热                     */
+            /*  40001 平台加热开关                     */
             case 0x00:
-                modbus.byte_info_H = qdc_info.roller_temp;
-                modbus.byte_info_L = qdc_info.roller_enable;
+                modbus.byte_info_H = 0x00;
+                modbus.byte_info_L = qdc_info.power_enable;
 
                 break;
 
@@ -226,44 +230,52 @@ void Modbus_Fun3_Sata( void )
 
                 break;
 
-            /*  40004 底板加热              */
+            /*  40004 循环控制              */
             case 0x03:    
-                modbus.byte_info_H = qdc_info.board_temp;
-                modbus.byte_info_L = qdc_info.board_switch;
+                modbus.byte_info_H = qdc_info.cir_level;
+                modbus.byte_info_L = qdc_info.cir_switch;
 
                 break;
 
-            /*  40005 墨囊加热                     */
+            /*  40005 循环控制                     */
             case 0x04:   
-                modbus.byte_info_H = 0x00;
-                modbus.byte_info_L = qdc_info.inksac_switch;
+                modbus.byte_info_H = qdc_info.cir_stop_time;
+                modbus.byte_info_L = qdc_info.cir_start_time;
 
                 break;
 
-            /*  40006 循环控制                     */
-            case 0x05:   
-                modbus.byte_info_H = (qdc_info.cir_stop_time << 1) | (qdc_info.cir_start_time >> 5) | (qdc_info.cir_switch << 7);
-                modbus.byte_info_L = qdc_info.cir_level | (qdc_info.cir_start_time << 3);
-                
+            /*  40004 搅拌控制              */
+            case 0x05:    
+                modbus.byte_info_H = qdc_info.stir_level;
+                modbus.byte_info_L = qdc_info.stir_switch;
+
                 break;
-            /*  40007 搅拌控制                     */
+
+            /*  40005 搅拌控制                     */
             case 0x06:   
-                modbus.byte_info_H = (qdc_info.stir_stop_time << 1) | (qdc_info.stir_start_time >> 5) | (qdc_info.stir_switch << 7);
-                modbus.byte_info_L = qdc_info.stir_level | (qdc_info.stir_start_time << 3);
+                modbus.byte_info_H = qdc_info.stir_stop_time;
+                modbus.byte_info_L = qdc_info.stir_start_time;
 
                 break;
 
-            /*  40008  缺墨延时时间                      */
+            /*  40006 缺墨延时时间                     */
             case 0x07:   
                 modbus.byte_info_H = 0x00;
                 modbus.byte_info_L = qdc_info.ink_out_time;
                 
                 break;
 
-            /*  40009  ink dis                      */
+            /*  40007 前、中加热报警温度                     */
             case 0x08:   
+                modbus.byte_info_H = qdc_info.M_alarm_temp;
+                modbus.byte_info_L = qdc_info.F_alarm_temp;    
+
+                break;
+
+            /*  40008  后加热报警温度                      */
+            case 0x09:   
                 modbus.byte_info_H = 0x00;
-                modbus.byte_info_L = qdc_info.ink7_dis;
+                modbus.byte_info_L = qdc_info.R_alarm_temp;    
                 
                 break;
 
@@ -286,9 +298,12 @@ void Modbus_Fun3_Sata( void )
 void Modbus_Fun4_485( void )
 {
 
-
+    /*  30001 30002  液位信息                   */
     qdc_info.level_info2 = rs485.RX4_buf[3];
     qdc_info.level_info1 = rs485.RX4_buf[4];
+
+    qdc_info.level_info4 = rs485.RX4_buf[5];
+    qdc_info.level_info3 = rs485.RX4_buf[6];
 
     qdc_info.ink1 =  qdc_info.level_info1 & 0x03;
     qdc_info.ink2 = (qdc_info.level_info1 & 0x0c) >> 2;
@@ -296,35 +311,33 @@ void Modbus_Fun4_485( void )
     qdc_info.ink4 = (qdc_info.level_info1 & 0xc0) >> 6;
     qdc_info.ink5 = (qdc_info.level_info2 & 0x03);
     qdc_info.ink6 = (qdc_info.level_info2 & 0x0c) >> 2;
-    if( qdc_info.ink7_dis == 1 )
-    {
-        qdc_info.ink7 = (qdc_info.level_info2 & 0x30) >> 4;
-    }else
-    {
-        qdc_info.ink7 = 0x03;
-    }
+    qdc_info.ink7 = (qdc_info.level_info2 & 0x30) >> 4;
     
+    qdc_info.ink8  =  qdc_info.level_info3 & 0x03;
+    qdc_info.ink9  = (qdc_info.level_info3 & 0x0c) >> 2;
+    qdc_info.ink10 = (qdc_info.level_info3 & 0x30) >> 4;
+    qdc_info.ink11 = (qdc_info.level_info3 & 0xc0) >> 6;
+    qdc_info.ink12 = (qdc_info.level_info4 & 0x03);
+    qdc_info.ink13 = (qdc_info.level_info4 & 0x0c) >> 2;
+    qdc_info.ink14 = (qdc_info.level_info4 & 0x30) >> 4;
+
     if(( qdc_info.ink1 == 0x01 ) || ( qdc_info.ink2 == 0x01 ) || ( qdc_info.ink3 == 0x01 ) || ( qdc_info.ink4 == 0x01 ) \
-    ||( qdc_info.ink5 == 0x01 ) || ( qdc_info.ink6 == 0x01 ) || ( qdc_info.ink7 == 0x01 ) || ( qdc_info.waste_ink == 0x00))
+    ||( qdc_info.ink5 == 0x01 ) || ( qdc_info.ink6 == 0x01 ) || ( qdc_info.ink7 == 0x01 ) || ( qdc_info.waste_ink == 0x00)\
+    ||( qdc_info.ink8 == 0x01 ) || ( qdc_info.ink9 == 0x01 ) || ( qdc_info.ink10 == 0x01 ) || ( qdc_info.ink11 == 0x01 ) \
+    ||( qdc_info.ink12 == 0x01 ) || ( qdc_info.ink13 == 0x01 ) || ( qdc_info.ink14 == 0x01 ))
     {
         Buzzer = 0;
     }else
     {
         Buzzer = 1;
     }
-    /*  30002  NTC3、NTC4温度查询                */
-
 
     /*  30003 温湿度                   */
 
     qdc_info.dht11_hum = rs485.RX4_buf[7];
     qdc_info.dht11_temp = rs485.RX4_buf[8];
-
-
-    /*  30004 NTC1 温度                    */
-
-    qdc_info.ntc1_temp = rs485.RX4_buf[10];
-
+    qdc_info.EB_scan_cnt = 0;
+    qdc_info.EB_statu_flag = 1;
 }
 
 
@@ -362,31 +375,38 @@ void Modbus_Fun4_Sata( void )
 
             /*  30002 废墨液位信息                 */
             case 0x01:
+                modbus.byte_info_H = qdc_info.level_info4;
+                modbus.byte_info_L = qdc_info.level_info3;
+
+                break;
+
+            /*  30003 废墨液位信息                 */
+            case 0x02:
                 waste_ink_scan();
-                modbus.byte_info_H = 0x00;
+                modbus.byte_info_H = qdc_info.EB_statu_flag;
                 modbus.byte_info_L = qdc_info.waste_ink;
 
                 break;
 
-            /*  30003 环境温湿度查询                   */
-            case 0x02:
+            /*  30004 环境温湿度查询                   */
+            case 0x03:
                 modbus.byte_info_H = qdc_info.dht11_hum;
                 modbus.byte_info_L = qdc_info.dht11_temp;
 
                 break;
 
-            /*  30004 NTC温度                  */
-            case 0x03:
-                modbus.byte_info_H = 0x00;
-                modbus.byte_info_L = qdc_info.ntc1_temp;
+            /*  30005 NTC1、2温度                  */
+            case 0x04:
+                modbus.byte_info_H = temp.temp_value2;
+                modbus.byte_info_L = temp.temp_value1;
 
                 break;
                 
-            /*  30005 热电堆温度                   */
-            case 0x04:
+            /*  30006 NTC3温度                  */
+            case 0x05:
                 modbus.byte_info_H = 0x00;
-                modbus.byte_info_L = qdc_info.thermopile_temp;
-                
+                modbus.byte_info_L = temp.temp_value3;
+
                 break;
 
             default:
@@ -425,41 +445,28 @@ void Modbus_Fun6_485( void )
 
             break;  
             
-        /*  40004  同步状态设置                   */
-        case 0x03:                                         
-            qdc_info.board_temp = sata.RX1_buf[4];     
-            qdc_info.board_switch = sata.RX1_buf[5];   
+        /*  40004  循环控制                   */
+        case 0x03:                                          
+            qdc_info.cir_switch = sata.RX1_buf[5];
+
             eeprom_data_record();
+
             break;
 
-        /*  40005  工作模式设置                   */
-        case 0x04:                                         
-            qdc_info.inksac_switch = sata.RX1_buf[5]; 
-            eeprom_data_record();
-            break;
-
-        /*  40006  报警温度设置                   */
+        /*  40005  搅拌控制                   */
         case 0x05:                                         
-            qdc_info.cir_level = (sata.RX1_buf[5] & 0x07);     
-            qdc_info.cir_start_time = (sata.RX1_buf[5] >> 3) | ((sata.RX1_buf[4] & 0x01) << 5);
-            qdc_info.cir_stop_time = (sata.RX1_buf[4] & 0x7F) >> 1;
-            qdc_info.cir_switch = sata.RX1_buf[4] >> 7;
-
-            break;
-
-        case 0x06:  
-            qdc_info.stir_level = (sata.RX1_buf[5] & 0x07);     
-            qdc_info.stir_start_time = (sata.RX1_buf[5] >> 3) | ((sata.RX1_buf[4] & 0x01) << 5);
-            qdc_info.stir_stop_time = (sata.RX1_buf[4] & 0x7F)>> 1;
-            qdc_info.stir_switch = sata.RX1_buf[4] >> 7;
+            qdc_info.stir_switch = sata.RX1_buf[5];
 
             eeprom_data_record();
 
             break;
-            
-        case 0x07: 
+
+        /*  40006  缺墨延时时间                   */
+        case 0x07:                                         
             qdc_info.ink_out_time = sata.RX1_buf[5];  
             eeprom_data_record();
+
+            break;
 
         default:
             break;   
@@ -481,10 +488,9 @@ void Modbus_Fun6_Sata( void )
 {
     switch (sata.RX1_buf[3])
     {
-        /*  40001  胶辊加热                 */
+        /*  40001  平台加热控制                 */
         case 0x00:                  
-            qdc_info.roller_temp = sata.RX1_buf[4];
-            qdc_info.roller_enable = sata.RX1_buf[5];
+            qdc_info.power_enable = sata.RX1_buf[5];
 
             slave_to_master_Sata(0x06,8);
             eeprom_data_record();
@@ -501,7 +507,7 @@ void Modbus_Fun6_Sata( void )
 
             break;
 
-        /*  40003 风扇                          */
+        /*  40003 风扇控制                         */
         case 0x02: 
             qdc_info.fan_level = sata.RX1_buf[5];                                     
             fan_ctrl(qdc_info.fan_level);
@@ -511,41 +517,49 @@ void Modbus_Fun6_Sata( void )
 
             break;  
             
-        /*  40004  底板加热                   */
+        /*  40004  循环控制                   */
         case 0x03:            
-            send_to_EB_06(0x03,sata.RX1_buf[4],sata.RX1_buf[5]);   
+            send_to_EB_06(0x03,0x00,sata.RX1_buf[5]);       
 
             break;
 
-        /*  40005  墨囊加热                   */
+        /*  40005  循环控制                   */
         case 0x04:                   
-            send_to_EB_06(0x04,0x00,sata.RX1_buf[5]);                      
+            //send_to_EB_06(0x04,sata.RX1_buf[4],sata.RX1_buf[5]);                      
 
+            break;
+            
+        /*  40004  搅拌控制                   */
+        case 0x05:            
+            send_to_EB_06(0x05,0x00,sata.RX1_buf[5]);       
 
             break;
 
-        /*  40006  循环控制                   */
-        case 0x05:                
-            send_to_EB_06(0x05,sata.RX1_buf[4],sata.RX1_buf[5]);                       
-
-            break;
-        /*  40007  搅拌控制                   */
-        case 0x06:       
-            send_to_EB_06(0x06,sata.RX1_buf[4],sata.RX1_buf[5]);                                          
-    
-            break;
-
-        /*  40008  缺墨延时时间                   */
-        case 0x07:                             
-            send_to_EB_06(0x07,0x00,sata.RX1_buf[5]);                 
+        /*  40005  搅拌控制                   */
+        case 0x06:                   
+            //send_to_EB_06(0x04,sata.RX1_buf[4],sata.RX1_buf[5]);                      
 
             break;
 
-        /*  40009  INK 显示                   */
-        case 0x08:                             
-            qdc_info.ink7_dis = sata.RX1_buf[5];       
+        /*  40006  缺墨延时时间                   */
+        case 0x07:                
+           send_to_EB_06(0x07,0x00,sata.RX1_buf[5]);                       
+
+            break;
+        /*  40007  报警温度                   */
+        case 0x08:       
+            qdc_info.M_alarm_temp = sata.RX1_buf[4]; 
+            qdc_info.F_alarm_temp = sata.RX1_buf[5];                                           
             slave_to_master_Sata(0x06,8);
             eeprom_data_record();
+
+            break;
+
+        /*  40008  报警温度                   */
+        case 0x09:                             
+            qdc_info.R_alarm_temp = sata.RX1_buf[5];                                           
+            slave_to_master_Sata(0x06,8);
+            eeprom_data_record();            
 
             break;
 
@@ -555,6 +569,54 @@ void Modbus_Fun6_Sata( void )
 }
 
 /**
+ * @brief	写单个输出寄存器  06
+ *
+ * @param   void
+ *
+ * @return  void 
+**/
+void Modbus_Fun16_Sata( void )
+{
+    uint16_t crc;
+    uint8_t send_buf[17];
+    if( sata.RX1_buf[3] == 0x06 )
+    {
+        qdc_info.F_alarm_temp = sata.RX1_buf[8];
+        qdc_info.M_alarm_temp = sata.RX1_buf[7]; 
+        qdc_info.R_alarm_temp = sata.RX1_buf[10]; 
+        slave_to_master_Sata(0x10,8);
+        eeprom_data_record(); 
+    }else
+    {
+        qdc_info.cir_level_m = sata.RX1_buf[7];
+        qdc_info.cir_switch_m = sata.RX1_buf[8];
+        qdc_info.cir_stop_time_m  = sata.RX1_buf[9];
+        qdc_info.cir_start_time_m = sata.RX1_buf[10];
+
+        qdc_info.stir_level_m = sata.RX1_buf[11];
+        qdc_info.stir_switch_m = sata.RX1_buf[12];
+        qdc_info.stir_stop_time_m = sata.RX1_buf[13];
+        qdc_info.stir_start_time_m = sata.RX1_buf[14];
+
+        memcpy(send_buf,sata.RX1_buf,15);
+
+        send_buf[0] = ADDR_485;
+
+        crc = MODBUS_CRC16(send_buf,15);
+
+        send_buf[15] = crc>>8;
+        send_buf[16] = crc;
+
+        memcpy(rs485.TX4_buf,send_buf,17);
+            
+        rs485.TX4_send_bytelength = 17;
+        DR_485 = 1;                                 //485可以发送
+        delay_ms(2);
+        S4CON |= S4TI;                              //开始发送
+        delay_ms(1);
+    }
+}
+/**
  * @brief	写多个输出寄存器  16
  *
  * @param   void
@@ -563,7 +625,23 @@ void Modbus_Fun6_Sata( void )
 **/
 void Modbus_Fun16_485( void )
 {
+    if( rs485.conntct_statu == 1 )
+    {
+        qdc_info.cir_level = qdc_info.cir_level_m;
+        qdc_info.cir_start_time = qdc_info.cir_start_time_m;
+        qdc_info.cir_stop_time = qdc_info.cir_stop_time_m;
+        qdc_info.cir_switch = qdc_info.cir_switch_m;
+
+        qdc_info.stir_level = qdc_info.stir_level_m;
+        qdc_info.stir_start_time = qdc_info.stir_start_time_m;
+        qdc_info.stir_stop_time = qdc_info.stir_stop_time_m;
+        qdc_info.stir_switch = qdc_info.stir_switch_m;
+        eeprom_data_record();
+    }
     rs485.connect_flag = 1;
+    delay_ms(50);
+    rs485.conntct_statu = 1;
+    slave_to_master_Sata(0x10,8);
 }
 
 
@@ -676,7 +754,7 @@ void slave_to_master_Sata(uint8_t code_num,uint8_t length)
             crc = MODBUS_CRC16(sata.TX1_buf,6);
 
             sata.TX1_buf[6] = crc;                 //CRC H
-            sata.TX1_buf[6] = crc>>8;              //CRC L
+            sata.TX1_buf[7] = crc>>8;              //CRC L
 
             sata.TX1_send_bytelength = length;
 
@@ -744,7 +822,7 @@ void send_to_EB_16( void )
     uint8_t send_buf[19];
     uint16_t crc;
 
-    send_buf[0] = 0xEB;
+    send_buf[0] = 0xE1;
     send_buf[1] = 0x10;
     send_buf[2] = 0x00;
     send_buf[3] = 0x00;
@@ -752,17 +830,17 @@ void send_to_EB_16( void )
     send_buf[5] = 0x05;
     send_buf[6] = 0x0a;
 
-    send_buf[7] = qdc_info.board_temp;
-    send_buf[8] = qdc_info.board_switch;
+    send_buf[7] = qdc_info.cir_level;
+    send_buf[8] = qdc_info.cir_switch;
 
-    send_buf[9] = 0x00;
-    send_buf[10] = qdc_info.inksac_switch;
+    send_buf[9] = qdc_info.cir_stop_time;
+    send_buf[10] = qdc_info.cir_start_time;
 
-    send_buf[11] = (qdc_info.cir_stop_time << 1) | (qdc_info.cir_start_time >> 5) | (qdc_info.cir_switch << 7);
-    send_buf[12] = qdc_info.cir_level | (qdc_info.cir_start_time << 3);
+    send_buf[11] = qdc_info.stir_level;
+    send_buf[12] = qdc_info.stir_switch;
 
-    send_buf[13] = (qdc_info.stir_stop_time << 1) | (qdc_info.stir_start_time >> 5) | (qdc_info.stir_switch << 7);
-    send_buf[14] = qdc_info.stir_level | (qdc_info.stir_start_time << 3);
+    send_buf[13] = qdc_info.stir_stop_time;
+    send_buf[14] = qdc_info.stir_start_time;
 
     send_buf[15] = 0x00;
     send_buf[16] = qdc_info.ink_out_time;
@@ -787,7 +865,7 @@ void send_to_EB_06( uint8_t addr, uint8_t val_H, uint8_t val_L)
     uint8_t send_buf[8];
     uint16_t crc;
 
-    send_buf[0] = 0xEB;
+    send_buf[0] = ADDR_485;
     send_buf[1] = 0x06;
     send_buf[2] = 0x00;
     send_buf[3] = addr;
@@ -812,14 +890,14 @@ void send_to_EB_04( void )
 {
     uint8_t send_buf[8];
 
-    send_buf[0] = 0xEB;
+    send_buf[0] = 0xE1;
     send_buf[1] = 0x04;
     send_buf[2] = 0x00;
     send_buf[3] = 0x00;
     send_buf[4] = 0x00;
-    send_buf[5] = 0x04;
-    send_buf[6] = 0x03;
-    send_buf[7] = 0xE7;
+    send_buf[5] = 0x03;
+    send_buf[6] = 0x6B;
+    send_buf[7] = 0xA6;
 
     memcpy(rs485.TX4_buf,send_buf,8);
 

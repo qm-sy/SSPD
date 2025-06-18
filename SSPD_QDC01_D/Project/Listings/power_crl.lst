@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   POWER_CRL                                                         06/06/2025 17:25:14 PAGE 1   
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         06/17/2025 15:41:23 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE POWER_CRL
@@ -43,51 +43,91 @@ line level    source
   32   1          PWMB_CCR7= level * 184;
   33   1      }
   34          
-  35          void rubber_roller_ctrl()
+  35          void power_ctrl()
   36          {
-  37   1          if( qdc_info.roller_enable == 1 )
+  37   1          if( qdc_info.power_enable == 1 )
   38   1          {
-  39   2              if( qdc_info.thermopile_temp < qdc_info.roller_temp )  
+  39   2              if( qdc_info.AC1_alarm_flag == 1)
   40   2              {
-  41   3                  AC_Out1 = 0; 
+  41   3                  AC_Out1 = 0;
   42   3              }else
   43   2              {
   44   3                  AC_Out1 = 1;
   45   3              }
-  46   2          }else
-  47   1          {
-  48   2              AC_Out1 = 1;
-  49   2          }
-  50   1      }
-  51          /**
-  52           * @brief 温度扫描，DHT11温湿度扫描 1s/次 控制220V输出使能
-  53           *
-C51 COMPILER V9.60.7.0   POWER_CRL                                                         06/06/2025 17:25:14 PAGE 2   
+  46   2              if( qdc_info.AC2_alarm_flag == 1)
+  47   2              {
+  48   3                  AC_Out2 = 0;
+  49   3              }else
+  50   2              {
+  51   3                  AC_Out2 = 1;
+  52   3              }
+  53   2              if( qdc_info.AC3_alarm_flag == 1)
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         06/17/2025 15:41:23 PAGE 2   
 
-  54           * @param[in] 
-  55           * 
-  56           * @return  
-  57           * 
-  58          **/
-  59          void temp_scan( void )
-  60          {
-  61   1          if( temp.temp_scan_flag == 1)
-  62   1          {
-  63   2      
-  64   2              qdc_info.thermopile_temp = get_temp(THERMOPILE);
-  65   2              
-  66   2              rubber_roller_ctrl();
-  67   2              
-  68   2              temp.temp_scan_flag = 0;
-  69   2          }
-  70   1      }
+  54   2              {
+  55   3                  AC_Out3 = 0;
+  56   3              }else
+  57   2              {
+  58   3                  AC_Out3 = 1;
+  59   3              }  
+  60   2          }else
+  61   1          {
+  62   2              AC_Out1 = AC_Out2 = AC_Out3 = 1; 
+  63   2          }
+  64   1      }
+  65          /**
+  66           * @brief 温度扫描，DHT11温湿度扫描 1s/次 控制220V输出使能
+  67           *
+  68           * @param[in] 
+  69           * 
+  70           * @return  
+  71           * 
+  72          **/
+  73          void temp_scan( void )
+  74          {
+  75   1          if( temp.temp_scan_flag == 1)
+  76   1          {
+  77   2              temp.temp_value1 = get_temp(NTC1);
+  78   2              temp.temp_value2 = get_temp(NTC2);
+  79   2              temp.temp_value3 = get_temp(NTC3);
+  80   2              
+  81   2              if( temp.temp_value1 >= qdc_info.F_alarm_temp )
+  82   2              {
+  83   3                  qdc_info.AC1_alarm_flag = 0;
+  84   3              }else
+  85   2              {
+  86   3                  qdc_info.AC1_alarm_flag = 1;
+  87   3              }
+  88   2      
+  89   2              if( temp.temp_value2 >= qdc_info.M_alarm_temp )
+  90   2              {
+  91   3                  qdc_info.AC2_alarm_flag = 0;
+  92   3              }else
+  93   2              {
+  94   3                  qdc_info.AC2_alarm_flag = 1;
+  95   3              }
+  96   2      
+  97   2              if( temp.temp_value3 >= qdc_info.R_alarm_temp )
+  98   2              {
+  99   3                  qdc_info.AC3_alarm_flag = 0;
+ 100   3              }else
+ 101   2              {
+ 102   3                  qdc_info.AC3_alarm_flag = 1;
+ 103   3              }
+ 104   2              power_ctrl();
+ 105   2              
+ 106   2              temp.temp_scan_flag = 0;
+ 107   2          }
+ 108   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     79    ----
+   CODE SIZE        =    203    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =      1    ----
    PDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   POWER_CRL                                                         06/17/2025 15:41:23 PAGE 3   
+
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
