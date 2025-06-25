@@ -18,11 +18,11 @@ void eeprom_statu_judge( void )
     if( eeprom_statu_flag == 0xFF)
     {
         qdc_info.roller_enable   = 1;
-        qdc_info.roller_temp     = 60;
+        qdc_info.roller_temp     = 40;
         qdc_info.led_switch      = 1;
         qdc_info.fan_level       = 3;
         qdc_info.board_switch    = 1;
-        qdc_info.board_temp      = 60;
+        qdc_info.board_temp      = 40;
         qdc_info.inksac_switch   = 1;
 
         qdc_info.cir_level      = 1;

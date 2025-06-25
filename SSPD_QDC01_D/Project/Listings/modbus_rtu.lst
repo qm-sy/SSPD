@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 1   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MODBUS_RTU
@@ -62,7 +62,7 @@ line level    source
   51   5      
   52   5                          default:
   53   5                              break;
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 2   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 2   
 
   54   5                      }
   55   4                  }
@@ -126,7 +126,7 @@ line level    source
  113   2          }
  114   1      }
  115          
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 3   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 3   
 
  116          /**
  117           * @brief       读输入寄存器  03
@@ -190,7 +190,7 @@ line level    source
  175   3              }
  176   2              rs485.TX4_buf[modbus.send_value_addr++] = modbus.byte_info_H;
  177   2              rs485.TX4_buf[modbus.send_value_addr++] = modbus.byte_info_L;
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 4   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 4   
 
  178   2          }
  179   1          slave_to_master_485(0x03,3 + modbus.byte_cnt);
@@ -254,7 +254,7 @@ line level    source
  237   3                  case 0x04:   
  238   3                      modbus.byte_info_H = 0x00;
  239   3                      modbus.byte_info_L = qdc_info.inksac_switch;
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 5   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 5   
 
  240   3      
  241   3                      break;
@@ -318,7 +318,7 @@ line level    source
  297   1          qdc_info.ink5 = (qdc_info.level_info2 & 0x03);
  298   1          qdc_info.ink6 = (qdc_info.level_info2 & 0x0c) >> 2;
  299   1          if( qdc_info.ink7_dis == 1 )
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 6   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 6   
 
  300   1          {
  301   2              qdc_info.ink7 = (qdc_info.level_info2 & 0x30) >> 4;
@@ -382,7 +382,7 @@ line level    source
  357   3                  case 0x00:
  358   3                      modbus.byte_info_H = qdc_info.level_info2;
  359   3                      modbus.byte_info_L = qdc_info.level_info1;
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 7   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 7   
 
  360   3      
  361   3                      break;
@@ -446,7 +446,7 @@ line level    source
  419   2      
  420   2      
  421   2                  break;
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 8   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 8   
 
  422   2      
  423   2              /*  40003 三路220V输出使能设置                          */
@@ -510,7 +510,7 @@ line level    source
  481          {
  482   1          switch (sata.RX1_buf[3])
  483   1          {
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 9   
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 9   
 
  484   2              /*  40001  胶辊加热                 */
  485   2              case 0x00:                  
@@ -574,7 +574,7 @@ line level    source
  543   2      
  544   2              /*  40009  INK 显示                   */
  545   2              case 0x08:                             
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 10  
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 10  
 
  546   2                  qdc_info.ink7_dis = sata.RX1_buf[5];       
  547   2                  slave_to_master_Sata(0x06,8);
@@ -638,7 +638,7 @@ line level    source
  605   2      
  606   2                  rs485.TX4_send_bytelength = length;
  607   2                  
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 11  
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 11  
 
  608   2                  break;   
  609   2      
@@ -702,7 +702,7 @@ line level    source
  667   2                  memcpy(sata.TX1_buf,sata.RX1_buf,8);
  668   2      
  669   2                  sata.TX1_send_bytelength = length;
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 12  
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 12  
 
  670   2                  
  671   2                  break;   
@@ -766,7 +766,7 @@ line level    source
  726   2              }while(--length != 0);
  727   1      
  728   1              return  (crc16);
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 13  
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 13  
 
  729   1      }
  730          
@@ -830,7 +830,7 @@ line level    source
  786          {
  787   1          uint8_t send_buf[8];
  788   1          uint16_t crc;
-C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/18/2025 09:40:14 PAGE 14  
+C51 COMPILER V9.60.7.0   MODBUS_RTU                                                        06/24/2025 15:34:02 PAGE 14  
 
  789   1      
  790   1          send_buf[0] = 0xEB;

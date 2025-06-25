@@ -16,7 +16,7 @@ void Tim3_ISR( void ) interrupt 19
     if( temp.temp_scan_flag == 0 )
     {
         temp_scan_cnt++;
-        if( temp_scan_cnt == 100 )
+        if( temp_scan_cnt == 200 )
         {
             temp.temp_scan_flag = 1;
             temp_scan_cnt = 0;

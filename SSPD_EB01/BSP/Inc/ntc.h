@@ -22,6 +22,7 @@ typedef struct
 
 extern TEMP temp;
 
+void bubble_sort(uint16_t arr[], uint16_t n);
 uint16_t get_temp( uint8_t channle_x );
 
 #endif

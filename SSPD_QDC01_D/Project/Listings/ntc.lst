@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.7.0   NTC                                                               06/18/2025 09:40:14 PAGE 1   
+C51 COMPILER V9.60.7.0   NTC                                                               06/24/2025 15:34:02 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE NTC
@@ -13,43 +13,73 @@ line level    source
    3          
    4          TEMP temp;
    5          
-   6          /**
-   7           * @brief 取10次adc_val均值对应的temp
-   8           *
-   9           * @param[in] channle_x ntc通道1~4
-  10           * 
-  11           * @return  temp :最终温度
-  12           * 
-  13          **/
-  14          uint16_t get_temp( uint8_t channle_x )
-  15          {
-  16   1          uint8_t t;
-  17   1          uint16_t adc_val = 0;
-  18   1          uint16_t temp_val;
-  19   1      
-  20   1          /* 1, 取10次adc_val                           */
-  21   1          for( t = 0; t < 10; t++ )
-  22   1                      {
-  23   2                              adc_val += Get_ADC_12bit(channle_x);
-  24   2                  
-  25   2                      }              
-  26   1          adc_val = adc_val/10;
-  27   1          if( adc_val >= 1156 )
-  28   1          {
-  29   2            temp_val = ((adc_val - 1156) * 100 )/ 623;
-  30   2          }else
-  31   1          {
-  32   2            temp_val = 0;
-  33   2          }
-  34   1      
-  35   1          return temp_val;
-  36   1      }
+   6          void bubble_sort(uint16_t arr[], uint16_t n) 
+   7          {
+   8   1          uint8_t i, j;
+   9   1          uint16_t temp;
+  10   1          
+  11   1          for (i = 0; i < n-1; i++) {
+  12   2              for (j = 0; j < n-i-1; j++) {
+  13   3                  if (arr[j] > arr[j+1]) {
+  14   4                      // 交换元素
+  15   4                      temp = arr[j];
+  16   4                      arr[j] = arr[j+1];
+  17   4                      arr[j+1] = temp;
+  18   4                  }
+  19   3              }
+  20   2          }
+  21   1      }
+  22          
+  23          /**
+  24           * @brief 取10次adc_val均值对应的temp
+  25           *
+  26           * @param[in] channle_x ntc通道1~4
+  27           * 
+  28           * @return  temp :最终温度
+  29           * 
+  30          **/
+  31          uint16_t get_temp( uint8_t channle_x )
+  32          {
+  33   1          uint8_t i,t,j;
+  34   1          uint16_t adc_val = 0;
+  35   1              uint16_t temp_val;
+  36   1          uint16_t adc_tab[24];
+  37   1          /* 1, 取10次adc_val                           */
+  38   1          for( t = 0; t < 24; t++ )
+  39   1              {
+  40   2                      adc_tab[t] = Get_ADC_12bit(channle_x);
+  41   2              }              
+  42   1          bubble_sort(adc_tab,24);
+  43   1          for(i = 6; i < 18; i++)
+  44   1          {
+  45   2            adc_val += adc_tab[i];
+  46   2          }
+  47   1          adc_val = adc_val/12;
+  48   1          printf("The value of check is: ");
+  49   1          for (j = 0; j < 16; j++)
+  50   1          {
+  51   2              printf("%d ", (int)adc_tab[j]);
+  52   2          }
+  53   1          printf("The value of adc_val is %d \r\n",(int)adc_val);
+  54   1          if( adc_val >= 1156 )
+C51 COMPILER V9.60.7.0   NTC                                                               06/24/2025 15:34:02 PAGE 2   
+
+  55   1          {
+  56   2            temp_val = ((adc_val - 1156) * 100 )/ 623;
+  57   2          }else
+  58   1          {
+  59   2            temp_val = 0;
+  60   2          }
+  61   1          printf("The valus of temp is %d \r\n",(int)temp_val);
+  62   1      
+  63   1          return temp_val;
+  64   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    130    ----
-   CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =      7       6
+   CODE SIZE        =    574    ----
+   CONSTANT SIZE    =     85    ----
+   XDATA SIZE       =      7      64
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
